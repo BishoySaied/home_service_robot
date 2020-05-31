@@ -1,13 +1,20 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
+#include <std_msgs/Float64.h>
+#include "add_markers/CtrMarkerPos.h"
+
+// This callback function executes whenever a safe_move service is requested
+bool handle_ctr_marker_pos_request(add_markers::CtrMarkerPos::Request& req,add_markers::CtrMarkerPos::Response& res)
+{;}
 
 int main( int argc, char** argv )
 {
   ros::init(argc, argv, "add_markers");
   ros::NodeHandle n;
+  
   ros::Rate r(1);
   ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
-
+  ros::ServiceServer service = n.advertiseService("/add_markers/CtrMarkerPos", handle_ctr_marker_pos_request);
   // Set our initial shape type to be a cube
   uint32_t shape = visualization_msgs::Marker::CUBE;
 
